@@ -19,9 +19,13 @@ namespace Meetup.DAL.Repositories
         {
             return DbSet.AsQueryable();
         }
-        public virtual ValueTask<TEntity> FindById(Guid id)
+        public virtual TEntity FindById(Guid id)
         {
-            return DbSet.FindAsync(id);
+            return DbSet.Find(id);
+        }
+        public virtual TEntity FindLast()
+        {
+            return DbSet.OrderByDescending(TEntity => TEntity.Created).First();
         }
         public virtual void InsertOrUpdate(TEntity entity)
         {

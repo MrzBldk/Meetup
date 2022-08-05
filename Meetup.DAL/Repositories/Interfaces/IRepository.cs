@@ -5,7 +5,8 @@ namespace Meetup.DAL.Repositories.Interfaces
     public interface IRepository <TEntity> where TEntity : Entity
     {
         IQueryable<TEntity> Find();
-        ValueTask<TEntity> FindById(Guid id);
+        TEntity FindById(Guid id);
+        TEntity FindLast();
         void InsertOrUpdate(TEntity entity);
         void Delete(TEntity entity);
     }

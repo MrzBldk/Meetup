@@ -1,15 +1,14 @@
-﻿namespace Meetup.DAL.Entities
+﻿namespace Meetup.BLL.DTO
 {
-    public class Event : Entity
+    public class EventDTO : EntityDTO
     {
         public string Title { get; set; }
         public string? Description { get; set; }
 
         public Guid OrganizerId { get; set; }
-        public Organizer Organizer { get; set; }
-
+        public OrganizerDTO Organizer { get; set; }
         public Guid? SpeakerId { get; set; }
-        public Speaker? Speaker { get; set; }
+        public SpeakerDTO Speaker { get; set; }
 
         public DateTime Date { get; set; }
         public string Place { get; set; }
