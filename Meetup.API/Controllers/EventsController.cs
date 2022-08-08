@@ -2,6 +2,7 @@
 using Meetup.API.Models;
 using Meetup.BLL.DTO;
 using Meetup.BLL.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Meetup.API.Controllers
@@ -9,6 +10,7 @@ namespace Meetup.API.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Produces("application/json")]
+    [Authorize]
     public class EventsController : ControllerBase
     {
         private IMapper _mapper;
