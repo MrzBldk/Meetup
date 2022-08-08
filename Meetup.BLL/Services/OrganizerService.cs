@@ -6,7 +6,7 @@ using Meetup.DAL.Repositories.Interfaces;
 
 namespace Meetup.BLL.Services
 {
-    internal class OrganizerService : BaseService, IOrganizerService
+    public class OrganizerService : BaseService, IOrganizerService
     {
         public OrganizerService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
         public List<OrganizerDTO> Get()

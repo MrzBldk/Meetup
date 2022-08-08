@@ -6,7 +6,7 @@ using Meetup.DAL.Repositories.Interfaces;
 
 namespace Meetup.BLL.Services
 {
-    internal class SpeakerService : BaseService, ISpeakerService
+    public class SpeakerService : BaseService, ISpeakerService
     {
         public SpeakerService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
         public List<SpeakerDTO> Get()
