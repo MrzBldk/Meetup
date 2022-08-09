@@ -11,7 +11,7 @@ To authorize, enter the following data:
 - Username — "username"
 - Password — "password"
 
-Dont'forget to check scope.
+Don't forget to check scope.
 ## Used technologies
 - EF Core
 - Automapper
