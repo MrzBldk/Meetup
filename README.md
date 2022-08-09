@@ -10,9 +10,11 @@ To authorize, enter the following data:
 - Client secret — "secret"
 - Username — "username"
 - Password — "password"
+
 Dont'forget to check scope.
 ## Used technologies
 - EF Core
-- Swagger
-- IdentityServer4
 - Automapper
+- Swagger
+- JwtBearer
+- IdentityServer4
