@@ -13,8 +13,8 @@ namespace Meetup.API.Controllers
     [Authorize]
     public class EventsController : ControllerBase
     {
-        private IMapper _mapper;
-        private IEventService _eventService;
+        private readonly IMapper _mapper;
+        private readonly IEventService _eventService;
         public EventsController(IMapper mapper, IEventService eventService)
         {
             _mapper = mapper;
@@ -54,7 +54,7 @@ namespace Meetup.API.Controllers
         /// <summary>
         /// Creates an event.
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="createModel"></param>
         /// <returns>A newly created event</returns>
         ///<remarks>
         /// Sample request:
@@ -76,22 +76,20 @@ namespace Meetup.API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Post([FromServices] IOrganizerService organizerService, [FromServices] ISpeakerService speakerService,
-            [FromBody] EventViewModel model)
+            [FromBody] CreateEventViewModel createModel)
         {
-            if (model.Id != Guid.Empty)
-                ModelState.AddModelError("Id", "Id must be empty");
 
-            if (organizerService.GetbyId(model.OrganizerId) is null)
+            if (organizerService.GetbyId(createModel.OrganizerId) is null)
                 ModelState.AddModelError("OrganizerId", "Incorrect organizer id");
 
-            if (model.SpeakerId.HasValue && speakerService.GetbyId(model.OrganizerId) is null)
+            if (createModel.SpeakerId.HasValue && speakerService.GetbyId(createModel.OrganizerId) is null)
                 ModelState.AddModelError("SpeakerId", "Incorrect speaker id");
 
             if (ModelState.IsValid)
             {
-                EventDTO dto = _mapper.Map<EventDTO>(model);
+                EventDTO dto = _mapper.Map<EventDTO>(createModel);
                 _eventService.Save(dto);
-                model = _mapper.Map<EventViewModel>(_eventService.GetLast());
+                var model = _mapper.Map<EventViewModel>(_eventService.GetLast());
                 return Created($"/api/Events/{model.Id}", model);
             }
             return BadRequest(ModelState);
@@ -122,7 +120,7 @@ namespace Meetup.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Put([FromServices] IOrganizerService organizerService, [FromServices] ISpeakerService speakerService,
-            [FromBody] EventViewModel model)
+            [FromBody] EditEventViewModel model)
         {
             if (_eventService.GetbyId(model.Id) is null)
                 ModelState.AddModelError("Id", "Incorrect id");
